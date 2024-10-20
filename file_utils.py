@@ -1,8 +1,8 @@
 import os
 from flask import current_app
+from config import ALLOWED_EXTENSIONS
 
 def allowed_file(filename):
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def save_uploaded_file(file, filename):

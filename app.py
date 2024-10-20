@@ -14,4 +14,5 @@ app.register_blueprint(upload_blueprint)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.debug = True
+    app.run(threaded=True)
