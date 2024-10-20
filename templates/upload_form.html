@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Image{% endblock %}
+
+{% block content %}
+  <h1>Upload Image</h1>
+
+  {% if processed_filename %}
+      <h2 class="mt-4">Processed Image:</h2>
+      <img src="{{ url_for('upload.uploaded_file', filename=processed_filename) }}" alt="Processed image" class="img-fluid">
+  {% endif %}
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-info" role="alert">
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form id="uploadForm" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="fileUpload" class="form-label">Choose an image to upload</label>
+      <input type="file" class="form-control" id="fileUpload" name="file" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Upload</button>
+  </form>
+
+  <div class="accordion mt-4" id="processAccordion">
+  </div>
+  
+  <div id="status" class="mt-4"></div>
+{% endblock %}
