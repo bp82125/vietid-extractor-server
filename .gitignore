@@ -12,3 +12,6 @@ docs/_build/
 uploads/
 output/
 models/
+
+*.pt
+*.pth
