@@ -1,17 +1,26 @@
-from flask import Flask, redirect, url_for
-from routes.upload_routes import upload_blueprint
+from flask import Flask, jsonify
+from flask_sse import sse
+from flask_cors import CORS
+
 import os
+
+from api.image_routes import image_api_bp
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
+app.register_blueprint(sse, url_prefix='/stream')
+app.register_blueprint(image_api_bp, url_prefix=app.config['API_PREFIX'] + '/images')
+
+CORS(app)
+
 @app.errorhandler(404)
 def not_found_error(error):
-    return redirect(url_for('upload.index'))
+    return jsonify({"error": "Resource not found"}), 404
 
-app.register_blueprint(upload_blueprint)
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
 if __name__ == '__main__':
     app.debug = True

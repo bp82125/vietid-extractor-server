@@ -1,13 +1,15 @@
 import os
 from matplotlib import pyplot as plt
 from ultralytics import YOLO
+
+from image_processing.config import CORNER_MODEL, MASK_MODEL
 from .corners import get_corner_number, get_corner_points, euclidean_distance
 
 import numpy as np
 import cv2
 
-corner_model = YOLO("./models/corners.pt")
-mask_model = YOLO("./models/mask.pt")
+corner_model = YOLO(CORNER_MODEL)
+mask_model = YOLO(MASK_MODEL)
 
 def perspective_transform(image, card_corners):    
     (tl, tr, br, bl) = card_corners
@@ -49,7 +51,7 @@ def calculate_coords_to_transform(img, corner_model, mask_model):
     corner_number = get_corner_number(corner_res)
     
     if corner_number < 3:
-        raise ValueError("Insufficient corners detected. At least 3 corner points are required to proceed with card detection.")
+        raise ValueError("Không thể nhận diện được số cạnh cần thiết để tiến hành biến đổi hình ảnh. Hãy thử lại với hình ảnh khác")
     
     corner_points = get_corner_points(corner_res)
     
