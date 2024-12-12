@@ -4,6 +4,10 @@ This project focuses on extracting essential information from the front of Vietn
 
 Check out: [Vietnamese ID Card Information Extractor (Client)](https://github.com/bp82125/vietid-extractor-client)
 
+## Pipeline Overview
+
+![Pipeline Diagram](./example/pipeline.png)
+
 ## Technologies Used
 - **YOLOv8, YOLOv8-Seg**: For object detection and segmentation of ID card regions.
 - **CRAFT**: For detecting and extracting text from the card.
