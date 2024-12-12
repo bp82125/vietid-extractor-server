@@ -44,13 +44,16 @@ conda activate vietid-extractor
 
 ### Download the Model Weights
 
-1. **YOLOv8 Weights**:  
-   Download the from [this link](https://drive.google.com/file/d/1dnGFk1AuVh0EAwPNTUm-BHTTO2_Hf49E/view?usp=drive_link), extract and place the weights in the `models` folder.
+1. **Create the `models` Folder**:  
+   If it doesn't already exist, create a `models` folder in your project directory.
 
-2. **CRAFT Weights**:  
+2. **YOLOv8 Weights**:  
+   Download from [this link](https://drive.google.com/file/d/1dnGFk1AuVh0EAwPNTUm-BHTTO2_Hf49E/view?usp=drive_link), extract and place the weights in the `models` folder.
+
+3. **CRAFT Weights**:  
    Download from the [CRAFT repo](https://github.com/clovaai/CRAFT-pytorch) and place the weights in the `models` folder.
 
-3. **VietOCR Weights**:  
+4. **VietOCR Weights**:  
    Download from [this link](https://vocr.vn/data/vietocr/vgg_transformer.pth) and place the weights in the `models` folder.
 
 Your `models` folder should look like this:
