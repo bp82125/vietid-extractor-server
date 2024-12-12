@@ -18,12 +18,10 @@ SKIP_ROI_TEXT = [
     "Họ và tên",
     "Place of origin",
     "Quê quán",
-    "Place of residence",
-    "Nơi thường trú",
 ]
 
 EXTRACT_ROI_TEXT = [
-    "No",
-    "Date of birth",
+    "Place of residence",
     "Nationality",
+    "Date of birth",
 ]

@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API_PREFIX = '/api/v1'
 
@@ -12,5 +15,5 @@ SECRET_KEY = 'supersecretkey'
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-REDIS_URL = "redis://localhost:6379"
-SSE_CHANNEL = "image-processing"
+MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/default')
+MONGO_COLLECTION_NAME = os.getenv('MONGO_COLLECTION_NAME', 'default_collection')

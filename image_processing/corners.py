@@ -1,6 +1,5 @@
 from ultralytics import YOLO
 import numpy as np
-import cv2
 from image_processing.config import CORNER_MODEL, CLASS_NAMES
 
 corner_model = YOLO(CORNER_MODEL)
@@ -16,12 +15,15 @@ def get_corner_points(yolo_res):
 
     corners_dict = {class_name: None for class_name in CLASS_NAMES}
 
-    for coord, class_id in zip(coords, class_ids):
-        if (x1 := coord[0]) is not None and (y1 := coord[1]) is not None and (x2 := coord[2]) is not None and (y2 := coord[3]) is not None:
-            class_name = CLASS_NAMES[int(class_id.item())]
-            corners_dict[class_name] = [(x1.item() + x2.item()) / 2, (y1.item() + y2.item()) / 2]
+    print(corners_dict)
 
-    corners_dict = {key: [float(val[0]), float(val[1])] if val is not None else None for key, val in corners_dict.items()}
+    for coord, class_id in zip(coords, class_ids):
+        class_id = int(class_id.item())
+        if corners_dict[class_id] is None:
+            x1, y1, x2, y2 = coord
+            corners_dict[class_id] = [(x1.item() + x2.item()) / 2, (y1.item() + y2.item()) / 2]
+
+    corners_dict = {CLASS_NAMES[class_id]: coord for class_id, coord in corners_dict.items()}
 
     return corners_dict
 

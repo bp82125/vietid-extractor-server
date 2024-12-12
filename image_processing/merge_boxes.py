@@ -1,6 +1,6 @@
 from image_processing.utils import get_center, merge_bounding_boxes
 
-def cluster_date_of_expire(bboxes, horizontal_threshold=150):
+def cluster_date_of_expire(bboxes, horizontal_threshold=100):
     horizontally_sorted = sorted(bboxes, key=lambda b: (b[0], b[1]))
     date_of_expire_cluster = []
 

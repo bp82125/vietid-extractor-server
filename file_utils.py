@@ -14,13 +14,14 @@ def save_uploaded_file(uploaded_file, filename):
 
 def handle_file_upload(request):
     if 'file' not in request.files:
-        return None, "No file part in the request"
+        return None, "Không tồn tại file trong yêu cầu"
     
     uploaded_file = request.files['file']
     if uploaded_file.filename == '':
-        return None, "No selected file"
+        return None, "Bạn chưa chọn file nào"
     
     if allowed_file(uploaded_file.filename):
         filename = secure_filename(uploaded_file.filename)
         return uploaded_file, filename
-    return None, "Invalid file type"
+    file_type = uploaded_file.filename.rsplit('.', 1)[-1]
+    return None, f"Định dạng hình ảnh không được hỗ trợ (.{file_type})"

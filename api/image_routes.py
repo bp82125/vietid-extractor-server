@@ -37,9 +37,9 @@ def upload_image():
                 yield response.to_json()
         except Exception as e:
             current_app.logger.error(f"Error processing image: {str(e)}")
-            response = APIResponse(status="error", message='Đã xảy ra lỗi trong lúc trích xuất thông tin', data=[str(e)])
-            yield response.to_json()
-            
+            yield APIResponse(status="error", message=f"Đã xảy ra lỗi: {str(e)}").to_json()     
+            # yield APIResponse(status="error", message='Đã xảy ra lỗi trong lúc trích xuất thông tin').to_json()
+       
         finally:
             os.remove(upload_path)
 

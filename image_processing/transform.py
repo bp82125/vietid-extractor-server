@@ -51,7 +51,7 @@ def calculate_coords_to_transform(img, corner_model, mask_model):
     corner_number = get_corner_number(corner_res)
     
     if corner_number < 3:
-        raise ValueError("Không thể nhận diện được số cạnh cần thiết để tiến hành biến đổi hình ảnh. Hãy thử lại với hình ảnh khác")
+        raise ValueError("Không thể nhận diện được thẻ CCCD. Hãy thử lại với hình ảnh khác")
     
     corner_points = get_corner_points(corner_res)
     
@@ -61,6 +61,7 @@ def calculate_coords_to_transform(img, corner_model, mask_model):
         corner_points['bottom_right'], 
         corner_points["bottom_left"]
     ]
+    
     
     if corner_number == 4:
         return process_four_corners(ordered_coords)
@@ -106,5 +107,4 @@ def transform_card_image(image_path):
     coords_to_transform = calculate_coords_to_transform(img, corner_model, mask_model)
         
     transformed = perspective_transform(img, coords_to_transform)
-    
     return transformed

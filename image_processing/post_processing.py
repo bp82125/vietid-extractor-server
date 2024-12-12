@@ -8,6 +8,11 @@ def clean_string(s):
 def replace_abundant_whitespace(s):
     return re.sub(r'\s+', ' ', s).strip()
 
+def check_id_number(text):
+    pattern = r'\b\d{12}\b'
+    
+    return bool(re.search(pattern, text))
+
 def check_text(s, text_to_check):
     for text in text_to_check:
         if text in s:
@@ -22,7 +27,8 @@ def handle_date_of_expiry(s):
         return "Không thời hạn"
 
 def handle_id_number(s):
-    return ''.join(re.findall(r'\d+', s))
+    pattern = r'\b\d{12}\b'
+    return ''.join(re.findall(pattern, s))
 
 def handle_sex_and_nationality(s):
     words = s.split()
@@ -35,7 +41,10 @@ def handle_sex_and_nationality(s):
     
     for i in range(len(words) - 1):
         if words[i] == 'Nationality':
-            res.append(" ".join(words[i+1:]))
+            nationality = " ".join(words[i + 1:])
+            if "Việt Nam" in nationality or "Thuận" in nationality:
+                nationality = "Việt Nam"
+            res.append(nationality)
             break
 
     return res
@@ -52,19 +61,28 @@ def process_text(raw_text):
     for idx, text in enumerate(cleaned_text):
         if idx == len(cleaned_text) - 1:
             processed_text.extend([handle_date_of_expiry(text)])
-            
-        elif "Sex" in text or "Nationality" in text:
-            processed_text.extend(handle_sex_and_nationality(text))
-    
-        elif check_text(text, SKIP_ROI_TEXT) != "":
             continue
         
-        elif check_text(text, EXTRACT_ROI_TEXT) != "":
+        if check_id_number(text):
+            processed_text.extend([handle_id_number(text)])
+            continue
+        
+        if "Sex" in text or "Nationality" in text:
+            processed_text.extend(handle_sex_and_nationality(text))
+            continue
+    
+        if check_text(text, SKIP_ROI_TEXT) != "":
+            continue
+        
+        if check_text(text, EXTRACT_ROI_TEXT) != "":
             keyword = check_text(text, EXTRACT_ROI_TEXT)
             processed_text.extend([handle_extract_text(text, keyword)])   
-        else:      
-            processed_text.extend([text])
+            continue
+        
+        processed_text.extend([text])
 
+    processed_text = [text for text in processed_text if text != ""]
+    
     return processed_text
 
 def label_text(content_text):    

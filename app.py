@@ -1,18 +1,20 @@
 from flask import Flask, jsonify
-from flask_sse import sse
 from flask_cors import CORS
 
 import os
 
 from api.image_routes import image_api_bp
+from api.data_routes import data_api_bp
+from extensions import mongo
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
-app.register_blueprint(sse, url_prefix='/stream')
-app.register_blueprint(image_api_bp, url_prefix=app.config['API_PREFIX'] + '/images')
+app.register_blueprint(image_api_bp, url_prefix=app.config['API_PREFIX'] + '/image')
+app.register_blueprint(data_api_bp, url_prefix=app.config['API_PREFIX'] + '/data')
 
 CORS(app)
+mongo.init_app(app)
 
 @app.errorhandler(404)
 def not_found_error(error):
