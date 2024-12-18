@@ -1,6 +1,6 @@
 # Vietnamese ID Card Information Extractor (Server)
 
-This project focuses on extracting essential information from the front of Vietnamese ID cards, such as the ID number, name, and address. The backend handles the image processing, extracts the required data, and stores the results efficiently for retrieval.
+This repository contains the backend implementation for the Vietnamese ID Card Information Extractor, handling image processing, data extraction, and result storage.
 
 Check out: [Vietnamese ID Card Information Extractor (Client)](https://github.com/bp82125/vietid-extractor-client)
 
